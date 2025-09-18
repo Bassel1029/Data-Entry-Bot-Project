@@ -4,13 +4,14 @@ import time
 import os
 import subprocess
 import sys
-import pygetwindow as gw  # for graceful Notepad closing
+from botcity.core import DesktopBot
+import pygetwindow as gw
 
-# --- 0️⃣ Close all Notepad windows at the start ---
+# --- 0️⃣ Close all Notepad windows at the start (cleanup) ---
 notepad_windows = [w for w in gw.getAllWindows() if 'notepad' in w.title.lower()]
 for w in notepad_windows:
     w.close()
-time.sleep(0.5)  # give them a moment to close
+time.sleep(0.5)
 
 # --- 1️⃣ Locate Desktop path (works with or without OneDrive) ---
 desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
@@ -33,6 +34,9 @@ try:
 except Exception as e:
     print(f"❌ Error fetching posts: {e}")
     sys.exit(1)
+
+# Path to close_btn.png (make sure it’s in same folder as this script)
+script_dir = os.path.dirname(os.path.abspath(__file__))
 
 # --- 3️⃣ Main loop for first 10 posts ---
 for i, post in enumerate(posts[:10], start=1):
@@ -57,13 +61,16 @@ for i, post in enumerate(posts[:10], start=1):
 
         print(f"✅ Saved: {file_path}")
 
+        # --- Close Notepad immediately after saving ---
+        bot = DesktopBot()
+        element = bot.find("close_btn", matching=0.7, waiting_time=5000)
+        if element:
+            bot.click(element)
+            bot.wait(1000)  # wait a bit before next loop
+        else:
+            print("⚠️ Could not find Notepad close button.")
+
     except Exception as e:
         print(f"❌ Error while processing post {i}: {e}")
 
-# --- 4️⃣ Close all Notepad windows at the end (gracefully) ---
-notepad_windows = [w for w in gw.getAllWindows() if 'notepad' in w.title.lower()]
-for w in notepad_windows:
-    w.close()
-time.sleep(0.5)
-
-print("✅ All Notepad windows closed.")
+print("✅ Finished processing all posts.")
