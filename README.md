@@ -9,7 +9,7 @@ This Python project automates data entry into the desktop application **Notepad*
 - Saves each post as a text file (`post 1.txt`, `post 2.txt`, etc.) in a `tjm-project` directory on the Desktop.
 - Gracefully handles multiple Notepad windows:
   - Closes any existing Notepad windows before starting.
-  - Closes all Notepad windows after completing the task.
+  - Uses **BotCity** image recognition to find and click the Notepad close button.
 - Error handling for network failures or file saving issues.
 - Fully packageable as a standalone executable using PyInstaller.
 
@@ -18,6 +18,7 @@ This Python project automates data entry into the desktop application **Notepad*
 - [PyAutoGUI](https://pyautogui.readthedocs.io/) for keyboard automation
 - [PyGetWindow](https://pygetwindow.readthedocs.io/) for window management
 - [Requests](https://docs.python-requests.org/) for API calls
+- [BotCity Core](https://github.com/botcity-dev/botcity-framework-core) for image-based UI automation
 
 ## Setup & Installation
 1. Clone the repository:
