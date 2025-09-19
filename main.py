@@ -8,9 +8,9 @@ from botcity.core import DesktopBot
 import pygetwindow as gw
 
 # --- 0️⃣ Close all Notepad windows at the start (cleanup) ---
-notepad_windows = [w for w in gw.getAllWindows() if 'notepad' in w.title.lower()]
-for w in notepad_windows:
-    w.close()
+notepad_windows = [win for win in gw.getAllWindows() if 'notepad' in w.title.lower()]
+for win in notepad_windows:
+    win.close()
 time.sleep(0.5)
 
 # --- 1️⃣ Locate Desktop path (works with or without OneDrive) ---
