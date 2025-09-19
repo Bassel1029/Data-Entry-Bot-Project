@@ -35,9 +35,6 @@ except Exception as e:
     print(f"❌ Error fetching posts: {e}")
     sys.exit(1)
 
-# Path to close_btn.png (make sure it’s in same folder as this script)
-script_dir = os.path.dirname(os.path.abspath(__file__))
-
 # --- 3️⃣ Main loop for first 10 posts ---
 for i, post in enumerate(posts[:10], start=1):
     try:
