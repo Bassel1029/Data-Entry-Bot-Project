@@ -63,7 +63,7 @@ for i, post in enumerate(posts[:10], start=1):
 
         # --- Close Notepad immediately after saving ---
         bot = DesktopBot()
-        element = bot.find("close_btn", matching=0.7, waiting_time=5000)
+        element = bot.find("close_btn", matching=0.9, waiting_time=5000)
         if element:
             bot.click(element)
             bot.wait(1000)  # wait a bit before next loop
