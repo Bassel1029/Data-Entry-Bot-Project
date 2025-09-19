@@ -8,7 +8,7 @@ from botcity.core import DesktopBot
 import pygetwindow as gw
 
 # --- 0️⃣ Close all Notepad windows at the start (cleanup) ---
-notepad_windows = [win for win in gw.getAllWindows() if 'notepad' in w.title.lower()]
+notepad_windows = [win for win in gw.getAllWindows() if 'notepad' in win.title.lower()]
 for win in notepad_windows:
     win.close()
 time.sleep(0.5)
