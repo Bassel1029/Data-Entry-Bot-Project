@@ -7,22 +7,29 @@ import sys
 from botcity.core import DesktopBot
 import pygetwindow as gw
 
-# --- 0️⃣ Cleanup step: ensure Notepad starts blank ---
+# --- 0️⃣ Safe Notepad Cleanup ---
+def close_all_notepads():
+    notepad_windows = [win for win in gw.getAllWindows() if 'notepad' in win.title.lower()]
 
-# 1. Open Notepad once
-subprocess.Popen(["notepad.exe"])
-time.sleep(1)
+    for win in notepad_windows:
+        try:
+            win.activate()
+            time.sleep(0.5)
+            pyautogui.hotkey("ctrl", "a")
+            pyautogui.press("delete")
+            time.sleep(0.2)
+            pyautogui.hotkey("ctrl", "w")
+            time.sleep(0.5)
+            pyautogui.press("right")  # move to "Don't Save"
+            pyautogui.press("enter")
+            time.sleep(0.5)
+        except Exception as e:
+            print(f"Error closing Notepad: {e}")
 
-# 2. Clear any recovered/unsaved text (safe even if empty)
-pyautogui.hotkey("ctrl", "a")
-pyautogui.press("backspace")
+    print("✅ All Notepad windows closed safely.")
 
-# 3. Close all Notepad windows (clean state for the loop later)
-notepad_windows = [win for win in gw.getAllWindows() if 'notepad' in win.title.lower()]
-for win in notepad_windows:
-    win.close()
-time.sleep(0.5)
-
+# Run cleanup before anything else
+close_all_notepads()
 
 # --- 1️⃣ Locate Desktop path (works with or without OneDrive) ---
 desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
