@@ -15,9 +15,6 @@ def close_all_notepads():
         try:
             win.activate()
             time.sleep(0.5)
-            pyautogui.hotkey("ctrl", "a")
-            pyautogui.press("delete")
-            time.sleep(0.2)
             pyautogui.hotkey("ctrl", "w")
             time.sleep(0.5)
             pyautogui.press("right")  # move to "Don't Save" if prompted
