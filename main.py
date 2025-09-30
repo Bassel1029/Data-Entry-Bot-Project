@@ -20,7 +20,7 @@ def close_all_notepads():
             time.sleep(0.2)
             pyautogui.hotkey("ctrl", "w")
             time.sleep(0.5)
-            pyautogui.press("right")  # move to "Don't Save"
+            pyautogui.press("right")  # move to "Don't Save" if prompted
             pyautogui.press("enter")
             time.sleep(0.5)
         except Exception as e:
@@ -30,6 +30,24 @@ def close_all_notepads():
 
 # Run cleanup before anything else
 close_all_notepads()
+
+# --- 0.5️⃣ Ensure starting Notepad is empty ---
+subprocess.Popen(["notepad.exe"])
+time.sleep(1)  # wait for Notepad to open
+
+# Clear any text (harmless if empty)
+pyautogui.hotkey("ctrl", "a")
+pyautogui.press("delete")
+time.sleep(0.2)
+
+# Close the Notepad safely
+pyautogui.hotkey("ctrl", "w")
+time.sleep(0.5)
+pyautogui.press("right")  # move to "Don't Save" if prompted
+pyautogui.press("enter")
+time.sleep(0.5)
+
+print("✅ Starting Notepad cleared, ready for automation loop.")
 
 # --- 1️⃣ Locate Desktop path (works with or without OneDrive) ---
 desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
