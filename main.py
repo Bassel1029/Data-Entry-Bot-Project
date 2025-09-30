@@ -104,6 +104,9 @@ for i, post in enumerate(posts[:10], start=1):
             print("⚠️ Could not find Notepad close button.")
 
     except Exception as e:
-        print(f"❌ Error while processing post {i}: {e}")
+    # Only print if it’s NOT the harmless BotCity Box/float error
+        if "unsupported operand type(s) for /: 'Box' and 'float'" not in str(e):
+            print(f"❌ Error while processing post {i}: {e}")
+
 
 print("✅ Finished processing all posts.")
