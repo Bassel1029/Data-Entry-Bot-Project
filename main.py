@@ -34,6 +34,7 @@ def close_all_notepads():
                 pyautogui.hotkey("ctrl", "w")
                 time.sleep(0.5)
                 pyautogui.press("right")
+                time.sleep(0.5)
                 pyautogui.press("enter")
             else:
                 # If Notepad is empty → just close
@@ -61,9 +62,6 @@ time.sleep(0.5)
 
 # Close the Notepad safely
 pyautogui.hotkey("ctrl", "w")
-time.sleep(0.5)
-pyautogui.press("right")  # move to "Don't Save" if prompted
-pyautogui.press("enter")
 time.sleep(0.5)
 
 print("✅ Starting Notepad cleared, ready for automation loop.")
@@ -117,16 +115,20 @@ for i, post in enumerate(posts[:10], start=1):
         # --- Close Notepad immediately after saving ---
         bot = DesktopBot()
         element = bot.find("close_btn", matching=0.9, waiting_time=5000)
+
         if element:
             bot.click(element)
             bot.wait(1000)  # wait a bit before next loop
+ 
         else:
-            print("⚠️ Could not find Notepad close button.")
+            # fallback if button not found
+            print("⚠️ Dark close button not found, resorting to Ctrl+W fallback")
+            pyautogui.hotkey("ctrl", "w")
+            time.sleep(1)
 
     except Exception as e:
     # Only print if it’s NOT the harmless BotCity Box/float error
         if "unsupported operand type(s) for /: 'Box' and 'float'" not in str(e):
             print(f"❌ Error while processing post {i}: {e}")
-
 
 print("✅ Finished processing all posts.")
