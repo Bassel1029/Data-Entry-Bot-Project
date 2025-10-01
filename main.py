@@ -4,27 +4,48 @@ import time
 import os
 import subprocess
 import sys
+import pyperclip
 from botcity.core import DesktopBot
 import pygetwindow as gw
 
-# --- 0️⃣ Safe Notepad Cleanup ---
+# --- 0️⃣ Safe Notepad Cleanup with Empty Check ---
 def close_all_notepads():
     notepad_windows = [win for win in gw.getAllWindows() if 'notepad' in win.title.lower()]
 
     for win in notepad_windows:
         try:
+            win.restore()
             win.activate()
             time.sleep(0.5)
-            pyautogui.hotkey("ctrl", "w")
+
+            # Clear clipboard before copying
+            pyperclip.copy("")
+
+            # Select all and copy content
+            pyautogui.hotkey("ctrl", "a")
+            time.sleep(0.2)
+            pyautogui.hotkey("ctrl", "c")
+            time.sleep(0.2)
+
+            content = pyperclip.paste().strip()
+
+            if content:  
+                # If Notepad has text → close with Don't Save
+                pyautogui.hotkey("ctrl", "w")
+                time.sleep(0.5)
+                pyautogui.press("right")
+                pyautogui.press("enter")
+            else:
+                # If Notepad is empty → just close
+                pyautogui.hotkey("ctrl", "w")
+                time.sleep(0.5)
+
             time.sleep(0.5)
-            pyautogui.press("right")  # move to "Don't Save" if prompted
-            pyautogui.press("enter")
-            time.sleep(0.5)
+
         except Exception as e:
             print(f"Error closing Notepad: {e}")
 
     print("✅ All Notepad windows closed safely.")
-
 # Run cleanup before anything else
 close_all_notepads()
 
