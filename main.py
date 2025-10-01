@@ -23,9 +23,9 @@ def close_all_notepads():
 
             # Select all and copy content
             pyautogui.hotkey("ctrl", "a")
-            time.sleep(0.2)
+            time.sleep(0.5)
             pyautogui.hotkey("ctrl", "c")
-            time.sleep(0.2)
+            time.sleep(0.5)
 
             content = pyperclip.paste().strip()
 
