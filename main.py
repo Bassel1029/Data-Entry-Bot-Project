@@ -38,7 +38,6 @@ def close_all_notepads():
             else:
                 # If Notepad is empty → just close
                 pyautogui.hotkey("ctrl", "w")
-                time.sleep(0.5)
 
             time.sleep(0.5)
 
@@ -46,6 +45,7 @@ def close_all_notepads():
             print(f"Error closing Notepad: {e}")
 
     print("✅ All Notepad windows closed safely.")
+    
 # Run cleanup before anything else
 close_all_notepads()
 
