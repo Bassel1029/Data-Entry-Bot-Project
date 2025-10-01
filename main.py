@@ -27,7 +27,7 @@ def close_all_notepads():
             pyautogui.hotkey("ctrl", "c")
             time.sleep(0.5)
 
-            content = pyperclip.paste().strip()
+            content = pyperclip.paste()
 
             if content:  
                 # If Notepad has text → close with Don't Save
