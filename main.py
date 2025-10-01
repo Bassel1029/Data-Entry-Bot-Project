@@ -34,8 +34,9 @@ time.sleep(1)  # wait for Notepad to open
 
 # Clear any text (harmless if empty)
 pyautogui.hotkey("ctrl", "a")
+time.sleep(0.5)
 pyautogui.press("delete")
-time.sleep(0.2)
+time.sleep(0.5)
 
 # Close the Notepad safely
 pyautogui.hotkey("ctrl", "w")
@@ -86,6 +87,7 @@ for i, post in enumerate(posts[:10], start=1):
         time.sleep(1)  # wait for Save dialog
         file_path = os.path.join(project_folder, f"post {i}.txt")
         pyautogui.typewrite(file_path)
+        time.sleep(0.5)
         pyautogui.press("enter")
         time.sleep(1)  # wait for saving
 
